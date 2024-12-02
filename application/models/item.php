@@ -172,6 +172,7 @@
 		{
 			$this->db->from('items');
 			$this->db->where('item_id', $item_number);
+			$this->db->or_where('item_number', $item_number);
 
 			$query = $this->db->get();
 

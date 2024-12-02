@@ -186,7 +186,7 @@ class Sales extends Secure_area
 
 	function add()
 	{
-
+		
 		$data = array();
 		$mode = $this->sale_lib->get_mode();
 		$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
@@ -197,6 +197,7 @@ class Sales extends Secure_area
 		} elseif ($this->sale_lib->is_valid_item_kit($item_id_or_number_or_item_kit_or_receipt)) {
 			$this->sale_lib->add_item_kit($item_id_or_number_or_item_kit_or_receipt);
 		} elseif (!$this->sale_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity)) {
+			
 			$data['error'] = $this->lang->line('sales_unable_to_add_item');
 		}
 

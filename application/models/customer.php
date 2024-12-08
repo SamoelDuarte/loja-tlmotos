@@ -149,7 +149,7 @@ public function save($person_data, $customer_id = false, $categories = null) {
 
             // Atualiza o registro existente em 'customers'
             // $this->db->where('person_id', $customer_id);
-            // $success_customers = $this->db->update('customers', $customer_data);
+            $success_customers = $this->db->update('customers',$person_data["customer_data"]);
 
             // Agora, remove os dados existentes em 'customer_category_link' para a pessoa
             // if ($success_customers) {
@@ -169,7 +169,7 @@ public function save($person_data, $customer_id = false, $categories = null) {
             //     }
             // }
 
-            // $success = $success_customers;
+            $success = $success_customers;
         }
     }
 

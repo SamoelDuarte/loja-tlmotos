@@ -114,64 +114,63 @@ public function save($person_data, $customer_id = false, $categories = null) {
 	// print_r( $return);
 	// 		exit;
     if ($return != false) {
-		$success = true;
         // Verifica se é um novo cliente ou uma atualização
-        // if (!$customer_id || !$this->exists($customer_id)) {
+        if (!$customer_id || !$this->exists($customer_id)) {
 			
 		
-        //     $person_data["customer_data"]["person_id"] = $return;
+            $person_data["customer_data"]["person_id"] = $return;
             
 			
 
-        //     // // Insere o novo cliente
-        //      $success = $this->db->insert('customers',  $person_data["customer_data"]);
+            // // Insere o novo cliente
+             $success = $this->db->insert('customers',  $person_data["customer_data"]);
             
-        //     // Se a inserção foi bem-sucedida e categorias foram fornecidas
-        //     if ($success && !is_null($categories) && !empty($categories)) {
-        //         // $customer_data['person_id'] = $person_data['person_id']; // Set person_id
+            // Se a inserção foi bem-sucedida e categorias foram fornecidas
+            if ($success && !is_null($categories) && !empty($categories)) {
+                // $customer_data['person_id'] = $person_data['person_id']; // Set person_id
 
-        //         // // Insere as categorias associadas ao cliente
-        //         // foreach ($categories as $category) {
-        //         //     $category_data = array(
-        //         //         'person_id' => $customer_data['person_id'],
-        //         //         'category_name' => $category
-        //         //     );
-        //         //     $this->db->insert('customer_category_link', $category_data);
-        //         // }
-        //     }
-        // } else {
-        //     // Se for uma atualização, prepara os dados para atualização
-        //     // $customer_data = array(
-        //     //     // Preencha com os campos que precisam ser atualizados
-        //     //     'field_name_1' => isset($person_data['field_name_1']) ? $person_data['field_name_1'] : '',
-        //     //     'field_name_2' => isset($person_data['field_name_2']) ? $person_data['field_name_2'] : '',
-        //     //     // Adicione mais campos conforme necessário
-        //     // );
+                // // Insere as categorias associadas ao cliente
+                // foreach ($categories as $category) {
+                //     $category_data = array(
+                //         'person_id' => $customer_data['person_id'],
+                //         'category_name' => $category
+                //     );
+                //     $this->db->insert('customer_category_link', $category_data);
+                // }
+            }
+        } else {
+            // Se for uma atualização, prepara os dados para atualização
+            // $customer_data = array(
+            //     // Preencha com os campos que precisam ser atualizados
+            //     'field_name_1' => isset($person_data['field_name_1']) ? $person_data['field_name_1'] : '',
+            //     'field_name_2' => isset($person_data['field_name_2']) ? $person_data['field_name_2'] : '',
+            //     // Adicione mais campos conforme necessário
+            // );
 
-        //     // Atualiza o registro existente em 'customers'
-        //     // $this->db->where('person_id', $customer_id);
-        //     // $success_customers = $this->db->update('customers', $customer_data);
+            // Atualiza o registro existente em 'customers'
+            // $this->db->where('person_id', $customer_id);
+            // $success_customers = $this->db->update('customers', $customer_data);
 
-        //     // Agora, remove os dados existentes em 'customer_category_link' para a pessoa
-        //     // if ($success_customers) {
-        //     //     // Remove as categorias anteriores
-        //     //     $this->db->where('person_id', $customer_data['person_id']);
-        //     //     $this->db->delete('customer_category_link');
+            // Agora, remove os dados existentes em 'customer_category_link' para a pessoa
+            // if ($success_customers) {
+            //     // Remove as categorias anteriores
+            //     $this->db->where('person_id', $customer_data['person_id']);
+            //     $this->db->delete('customer_category_link');
 
-        //     //     // Insere novas categorias se fornecidas
-        //     //     if (!is_null($categories) && !empty($categories)) {
-        //     //         foreach ($categories as $category) {
-        //     //             $category_data = array(
-        //     //                 'person_id' => $customer_data['person_id'],
-        //     //                 'category_name' => $category
-        //     //             );
-        //     //             $this->db->insert('customer_category_link', $category_data);
-        //     //         }
-        //     //     }
-        //     // }
+            //     // Insere novas categorias se fornecidas
+            //     if (!is_null($categories) && !empty($categories)) {
+            //         foreach ($categories as $category) {
+            //             $category_data = array(
+            //                 'person_id' => $customer_data['person_id'],
+            //                 'category_name' => $category
+            //             );
+            //             $this->db->insert('customer_category_link', $category_data);
+            //         }
+            //     }
+            // }
 
-        //     // $success = $success_customers;
-        // }
+            // $success = $success_customers;
+        }
     }
 
     // Completa a transação

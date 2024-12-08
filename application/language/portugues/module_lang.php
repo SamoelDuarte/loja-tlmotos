@@ -31,8 +31,8 @@ $lang['module_giftcards_desc']='Adicionar, Atualizar, Excluir e Procurar Gift Ca
 $lang['module_item_kits']='Kits';
 $lang['module_item_kits_desc']='Adicionar, Atualizar, Excluir e Procurar Kits</b>';
 
-$lang['module_WooCommerce']='WooCommerce';
-$lang['module_WooCommerce_desc']='Configurar Woocommerce</b>';
+$lang['module_woocommerce']='WooCommerce';
+$lang['module_woocommerce_desc']='Configurar Woocommerce</b>';
 
 $lang['module_categories']='Cateorias';
 $lang['module_categories_desc']='Configurar Categorias</b>';

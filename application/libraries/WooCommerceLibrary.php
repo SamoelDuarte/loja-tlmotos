@@ -72,4 +72,10 @@ class WooCommerceLibrary
             return false;
         }
     }
+
+    // Outra função de exemplo para criar um categoria
+    public function create_product_category($data)
+    {
+        return $this->client->post('products/categories', $data);
+    }
 }

@@ -7,9 +7,9 @@
 		function exists($item_id)
 		{
 			$this->db->from('items');
-			$this->db->where('item_id', $item_id);
+			$this->db->where('item_number', $item_id);
 			$query = $this->db->get();
-
+			
 			return $query->num_rows() == 1 ? 1 : 0;
 		}
 
@@ -205,7 +205,7 @@
 		}
 		function save(&$item_data, $item_id = false, $images = array(), $cover_image_index = null)
 		{
-
+			
 			if(!$this->exists($item_id)){
 				return false;
 			}

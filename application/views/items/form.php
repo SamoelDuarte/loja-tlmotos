@@ -95,7 +95,7 @@ echo form_open('items/save/' . $item_info->item_id, array('id' => 'item_form', '
 	</div>
 
 	<div class="field_row clearfix">
-		<?php echo form_label('Preço CNPJ:', 'valor_cnpj', array('class' => ' wide')); ?>
+		<?php echo form_label('Preço CNPJ:', 'valor_cnpj', array('class' => 'required wide')); ?>
 		<div class='form_field'>
 			<?php echo form_input(
 				array(
@@ -553,8 +553,12 @@ echo form_close();
 						return $('#sinc_wc').is(':checked');
 					},
 					number: true
+				},
+				item_number: {
+					required: function(element) {
+						return $('#sinc_wc').is(':checked');
+					}
 				}
-				
 			},
 			messages: {
 				name: "<?php echo $this->lang->line('items_name_required'); ?>",
@@ -600,6 +604,9 @@ echo form_close();
 				peso: {
 					required: "O peso é obrigatório quando 'Enviar Para WC' está marcado.",
 					number: "O peso deve ser um número válido."
+				},
+				item_number: {
+					required: "UPC/EAN/ISBN obrigatório quando 'Enviar Para WC' está marcado."
 				}
 			}
 		});
@@ -609,6 +616,7 @@ echo form_close();
 			$('#item_form').validate().element('#altura');
 			$('#item_form').validate().element('#largura');
 			$('#item_form').validate().element('#comprimento');
+			$('#item_form').validate().element('#item_number');
 		});
 	});
 </script>

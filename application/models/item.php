@@ -10,7 +10,7 @@
 			$this->db->where('item_id', $item_id);
 			$query = $this->db->get();
 
-			return ($query->num_rows() == 1);
+			return $query->num_rows() == 1 ? 1 : 0;
 		}
 
 		function get_all($limit = 10000, $offset = 0)
@@ -205,9 +205,15 @@
 		}
 		function save(&$item_data, $item_id = false, $images = array(), $cover_image_index = null)
 		{
+
+			if(!$this->exists($item_id)){
+				return false;
+			}
+		
 			// Verifica se é um novo item ou um item existente
-			if (!$item_id || !$this->exists($item_id)) {
+			if (!$item_id) {
 				if ($this->db->insert('items', $item_data)) {
+					
 					$item_id = $this->db->insert_id();  // Obtém o novo item_id
 				} else {
 					return false;

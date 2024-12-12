@@ -214,9 +214,10 @@ class Items extends Secure_area implements iData_controller
 
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$cur_item_info = $this->Item->get_info($item_id);
-
+	
 		// Salvar o item
 		if ($this->Item->save($item_data, $item_id)) {
+			
 			// Novo item
 			if ($item_id == -1) {
 				// Obtenha o item_id após inserir um novo item

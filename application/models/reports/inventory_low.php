@@ -6,26 +6,25 @@ class Inventory_low extends Report
 	{
 		parent::__construct();
 	}
-	
+
 	public function getDataColumns()
 	{
 		return array($this->lang->line('reports_item_name'), $this->lang->line('reports_item_number'), $this->lang->line('reports_description'), $this->lang->line('reports_count'), $this->lang->line('reports_reorder_level'));
 	}
-	
+
 	public function getData(array $inputs)
 	{
 		$this->db->select('name, item_number, quantity, reorder_level, description');
 		$this->db->from('items');
-		$this->db->where('quantity <= reorder_level and deleted=0');
+		$this->db->where('quantity <= reorder_level and deleted=0 and reorder_level > 0 and quantity > 0');
 		$this->db->order_by('name');
-		
-		return $this->db->get()->result_array();
 
+		return $this->db->get()->result_array();
 	}
-	
+
+
 	public function getSummaryData(array $inputs)
 	{
 		return array();
 	}
 }
-?>

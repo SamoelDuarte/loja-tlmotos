@@ -9,7 +9,7 @@
 			$this->db->from('items');
 			$this->db->where('item_number', $item_id);
 			$query = $this->db->get();
-			
+
 			return $query->num_rows() == 1 ? 1 : 0;
 		}
 
@@ -205,32 +205,34 @@
 		}
 		function save(&$item_data, $item_id = false, $images = array(), $cover_image_index = null)
 		{
-			
-			if(!$this->exists($item_id)){
-				return false;
-			}
-		
-			// Verifica se é um novo item ou um item existente
-			if (!$item_id) {
+			// Verifica se o item existe
+			if ($item_id == false) {
+
 				if ($this->db->insert('items', $item_data)) {
-					
 					$item_id = $this->db->insert_id();  // Obtém o novo item_id
 				} else {
-					return false;
+					return false;  // Se falhar na inserção, retorna false
 				}
 			} else {
-				$item_data['up_wc'] = 1;
-				$this->db->where('item_id', $item_id);
-				$this->db->update('items', $item_data);
+				// print_r('aki');
+				// exit;
+				// Se o item já existe, é necessário atualizar
+				if ($item_id) {
+					$item_data['up_wc'] = 1;  // Marca como atualizado
+					$this->db->where('item_id', $item_id);
+					$this->db->update('items', $item_data);  // Atualiza o item existente
+				}
 			}
 
-			// Se houver imagens para serem salvas
+			// Se houver imagens para salvar
 			if (!empty($images)) {
-				$this->save_item_images($item_id, $images, $cover_image_index);  // Chama a função para salvar as imagens
+				// Chama a função para salvar as imagens
+				$this->save_item_images($item_id, $images, $cover_image_index);
 			}
 
-			return true;
+			return true;  // Retorna verdadeiro após o processo de criação/atualização
 		}
+
 		function save_item_images($item_id, $images, $cover_image_index = null)
 		{
 			$this->load->library('upload');

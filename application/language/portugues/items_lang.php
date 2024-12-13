@@ -81,4 +81,5 @@ $lang['items_inventory_data_tracking'] = 'Movimento do Estoque';
 $lang['items_data'] = 'Data';
 $lang['items_in_out_qty'] = 'Qtd Ent/Sai';
 $lang['items_remarks'] = 'Observações';
+$lang['items_tax_percent_number'] = 'Percentual de imposto';
 ?>

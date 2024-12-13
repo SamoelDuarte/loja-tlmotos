@@ -44,4 +44,5 @@ $lang['common_excel_import']='Importar do Excel';
 $lang['common_document']='CPF/CNPJ';
 $lang['common_discount']='Desconto';
 $lang['common_category']='Categoria sem Desconto';
+$lang['common_you_are_using_ospos']='Você está utilizando o OSpos';
 ?>

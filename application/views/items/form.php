@@ -100,6 +100,7 @@ echo form_open('items/save/' . $item_info->item_id, array('id' => 'item_form', '
 			<?php echo form_input(
 				array(
 					'name' => 'valor_cnpj',
+					'id' => 'valor_cnpj',
 					'size' => '8',
 					'type' => 'text',
 					'value' => $item_info->valor_cnpj
@@ -502,6 +503,10 @@ echo form_close();
 				name: "required",
 				category: "required",
 				supplier_id: "required",
+				valor_cnpj: {
+					required: true, // Torna o campo obrigatório
+					number: true // Se você quiser garantir que seja um número válido (pode ser modificado para uma regex, dependendo do formato)
+				},
 				cost_price: {
 					required: true,
 					number: true
@@ -567,6 +572,10 @@ echo form_close();
 				cost_price: {
 					required: "<?php echo $this->lang->line('items_cost_price_required'); ?>",
 					number: "<?php echo $this->lang->line('items_cost_price_number'); ?>"
+				},
+				valor_cnpj: {
+					required: "O campo CNPJ é obrigatório.",
+					number: "O CNPJ deve ser um número válido." // Se o CNPJ for numérico, caso contrário, você pode customizar com uma regex
 				},
 				unit_price: {
 					required: "<?php echo $this->lang->line('items_unit_price_required'); ?>",

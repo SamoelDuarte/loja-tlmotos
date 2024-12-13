@@ -207,10 +207,14 @@
 		}
 		function save(&$item_data, $item_id = false, $images = array(), $cover_image_index = null)
 		{
-			// Verifica se o item existe
-			if ($item_id == false) {
 
+			
+			// Verifica se o item existe
+			if ($item_id == -1) {
+
+				
 				if ($this->db->insert('items', $item_data)) {
+				
 					$item_id = $this->db->insert_id();  // Obtém o novo item_id
 				} else {
 					return false;  // Se falhar na inserção, retorna false

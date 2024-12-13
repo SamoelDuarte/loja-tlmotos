@@ -190,6 +190,8 @@ class Sales extends Secure_area
 		$data = array();
 		$mode = $this->sale_lib->get_mode();
 		$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
+		
+
 		$quantity = $mode == "sale" ? 1 : -1;
 
 		if ($this->sale_lib->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt) && $mode == 'return') {

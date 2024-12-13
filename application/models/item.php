@@ -111,6 +111,7 @@
 			// Altere 'category_id' e 'id' conforme necessário
 			$this->db->join('categories_products', 'items.category_id = categories_products.category_id', 'left'); // Use o nome correto da coluna aqui
 			$this->db->where('item_id', $item_id);
+			$this->db->or_where('item_number', $item_id);
 
 			$query = $this->db->get();
 
@@ -171,8 +172,8 @@
 		function get_item_id($item_number)
 		{
 			$this->db->from('items');
-			$this->db->where('item_id', $item_number);
-			$this->db->or_where('item_number', $item_number);
+			$this->db->where_in('item_id', [$item_number]);
+			$this->db->or_where_in('item_number', [$item_number]);
 
 			$query = $this->db->get();
 
@@ -182,6 +183,7 @@
 
 			return false;
 		}
+
 
 		/*
 		Gets information about multiple items

@@ -215,7 +215,8 @@ class Items extends Secure_area implements iData_controller
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$cur_item_info = $this->Item->get_info($item_id);
 
-		if($this->Item->exists($this->input->post('item_number'))){
+		
+		if($this->Item->exists($this->input->post('item_number')) && $item_id == -1){
 			echo json_encode(array('success' => false, 'message' =>  'Esse UPC/EAN/ISBN: ' . $this->input->post('item_number')." Já Existe", 'item_id' => -1));
 			exit;
 		}

@@ -33,7 +33,7 @@ class Categories extends Secure_area
 		foreach ($categories as $category) {
 			$wc_status = $category['wc_id']
 				? '<span class="badge badge-success">✓</span>'
-				: '<button class="btn btn-sm btn-primary send-to-wc" data-id="' . $category['category_id'] . '">Enviar para WC</button>';
+				: '<button class="btn btn-sm btn-primary send-to-wc" data-id="' . $category['category_id'] . '">Enviar para Loja Virtual</button>';
 
 			$data[] = [
 				'category_name' => $category['category_name'],

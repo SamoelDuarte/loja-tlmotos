@@ -1,5 +1,5 @@
 <?php
-$lang['items_item_number']='UPC/EAN/ISBN';
+$lang['items_item_number']='EAN/UPC/Código da peça';
 $lang['items_retrive_item_info']='Dapatkan Info Produk/Item';
 $lang['items_description']='Deskripsi';
 $lang['items_amazon']='Amazon';

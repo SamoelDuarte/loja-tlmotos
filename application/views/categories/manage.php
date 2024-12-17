@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Woocommerce</th>
+                <th>Está no Site?</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -124,7 +124,7 @@
             table.ajax.reload();
         });
 
-        // Enviar para WC com loading
+        // Enviar para Loja Virtual com loading
         $('#categories_table').on('click', '.send-to-wc', function() {
             let categoryId = $(this).data('id');
             let button = $(this); // Guarda referência do botão

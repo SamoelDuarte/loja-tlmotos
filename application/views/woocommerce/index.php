@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <div class="container mt-5">
-<h3>Total de Produtos no WooCommerce: <?php echo $total_products; ?></h3>
+<h3>Total de produtos no site: <?php echo $total_products; ?></h3>
 
     <!-- Botão de recarregar a página -->
     <div class="d-flex justify-content-end mb-4">

@@ -143,7 +143,7 @@ function get_items_manage_table($items, $controller)
     $headers = array(
         '<input type="checkbox" id="select_all" />', 
         $CI->lang->line('items_item_number'),
-		'Loja Virtual', // Novo cabeçalho para a coluna do wc_id,
+		'Site', // Novo cabeçalho para a coluna do wc_id,
         $CI->lang->line('items_name'),
         $CI->lang->line('items_category'),
         $CI->lang->line('items_cost_price'),

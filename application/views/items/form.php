@@ -262,7 +262,7 @@ echo form_open('items/save/' . $item_info->item_id, array('id' => 'item_form', '
 	</div>
 
 	<div class="field_row clearfix">
-		<?php echo form_label('Enviar Para WC:', 'Enviar Para WC', array('class' => 'wide')); ?>
+		<?php echo form_label('Enviar para Loja Virtual:', 'Enviar para Loja Virtual', array('class' => 'wide')); ?>
 		<div class='form_field'>
 			<?php echo form_checkbox(
 				array(
@@ -415,6 +415,9 @@ echo form_close();
 	});
 </script>
 
+<script>
+	console.log('Versão do jQuery:', jQuery.fn.jquery);
+</script>
 
 <script type='text/javascript'>
 	function previewImages() {
@@ -475,6 +478,17 @@ echo form_close();
 		readFiles(0);
 	}
 	$(document).ready(function() {
+
+		$.validator.addMethod("customPattern", function(value, element, param) {
+			return this.optional(element) || /^[0-9a-zA-Z]+$/.test(value);
+		}, "Por favor, insira apenas letras e números.");
+
+
+
+		$('#item_number').bind('input', function() {
+			let value = $(this).val().replace(/\s+/g, '');
+			$(this).val(value);
+		});
 		// Configuração do autocomplete para o campo de categoria
 		$("#category").autocomplete("<?php echo site_url('items/suggest_category'); ?>", {
 			max: 100,
@@ -487,7 +501,14 @@ echo form_close();
 		// Validação e envio do formulário
 		$('#item_form').validate({
 			submitHandler: function(form) {
-				$('#item_number').val($('#scan_item_number').val());
+				if ($('#item_number').length > 0) {
+					// Validação do item_number
+					var itemNumber = $('#item_number').val();
+					if (!/^(?=.*\d)[a-zA-Z0-9]+$/.test(itemNumber)) {
+						alert("Campo EAN/UPC/Código da peça Não Pode Conter só Letras");
+						return false;
+					}
+				}
 				$(form).ajaxSubmit({
 					success: function(response) {
 						tb_remove();
@@ -537,7 +558,7 @@ echo form_close();
 				// Adicionar as regras para altura, largura e comprimento
 				altura: {
 					required: function(element) {
-						return $('#sinc_wc').is(':checked'); // Campo obrigatório se 'Enviar Para WC' estiver marcado
+						return $('#sinc_wc').is(':checked'); // Campo obrigatório se 'Enviar para Loja Virtual' estiver marcado
 					},
 					number: true
 				},
@@ -562,7 +583,8 @@ echo form_close();
 				item_number: {
 					required: function(element) {
 						return $('#sinc_wc').is(':checked');
-					}
+					},
+					customPattern: true
 				}
 			},
 			messages: {
@@ -594,33 +616,33 @@ echo form_close();
 					number: "<?php echo $this->lang->line('items_reorder_level_number'); ?>"
 				},
 				sale_price: {
-					required: "O preço do site é obrigatório quando 'Enviar Para WC' está marcado.",
+					required: "O preço do site é obrigatório quando 'Enviar para Loja Virtual' está marcado.",
 					number: "O preço do site deve ser um número válido.",
 					min: "O preço do site deve ser maior que zero."
 				},
 				altura: {
-					required: "A altura é obrigatória quando 'Enviar Para WC' está marcado.",
+					required: "A altura é obrigatória quando 'Enviar para Loja Virtual' está marcado.",
 					number: "A altura deve ser um número válido."
 				},
 				largura: {
-					required: "A largura é obrigatória quando 'Enviar Para WC' está marcado.",
+					required: "A largura é obrigatória quando 'Enviar para Loja Virtual' está marcado.",
 					number: "A largura deve ser um número válido."
 				},
 				comprimento: {
-					required: "O comprimento é obrigatório quando 'Enviar Para WC' está marcado.",
+					required: "O comprimento é obrigatório quando 'Enviar para Loja Virtual' está marcado.",
 					number: "O comprimento deve ser um número válido."
 				},
 				peso: {
-					required: "O peso é obrigatório quando 'Enviar Para WC' está marcado.",
+					required: "O peso é obrigatório quando 'Enviar para Loja Virtual' está marcado.",
 					number: "O peso deve ser um número válido."
 				},
 				item_number: {
-					required: "UPC/EAN/ISBN obrigatório quando 'Enviar Para WC' está marcado."
+					required: "EAN/UPC/Código da peça obrigatório quando 'Enviar para Loja Virtual' está marcado."
 				}
 			}
 		});
 
-		// Verifica o estado do checkbox 'Enviar Para WC' e ativa/desativa a validação
+		// Verifica o estado do checkbox 'Enviar para Loja Virtual' e ativa/desativa a validação
 		$('#sinc_wc').change(function() {
 			$('#item_form').validate().element('#altura');
 			$('#item_form').validate().element('#largura');

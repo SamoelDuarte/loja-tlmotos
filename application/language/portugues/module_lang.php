@@ -34,7 +34,7 @@ $lang['module_item_kits_desc']='Adicionar, Atualizar, Excluir e Procurar Kits</b
 $lang['module_woocommerce']='WooCommerce';
 $lang['module_woocommerce_desc']='Configurar Woocommerce</b>';
 
-$lang['module_categories']='Cateorias';
+$lang['module_categories']='Categorias';
 $lang['module_categories_desc']='Configurar Categorias</b>';
 
 $lang['module_orders']='Pedidos';

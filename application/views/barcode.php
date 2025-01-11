@@ -127,7 +127,7 @@ function Barcode39 ($barcode, $width, $height, $quality, $format, $text)
         }
 
 
-        $im = ImageCreate ($width, $height)
+        $im = imagecreate ($width, $height)
     or die ("Cannot Initialize new GD image stream");
         $White = ImageColorAllocate ($im, 255, 255, 255);
         $Black = ImageColorAllocate ($im, 0, 0, 0);
@@ -217,7 +217,7 @@ function OutputImage ($im, $format, $quality)
         switch ($format)
         {
                 case "JPEG": 
-                        ImageJPEG ($im, "", $quality);
+                        imagejpeg($im, null, $quality);
                         break;
                 case "PNG":
                         ImagePNG ($im);

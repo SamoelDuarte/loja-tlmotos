@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'production');
+	define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -201,6 +201,7 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+require_once __DIR__ . '/vendor/autoload.php';
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

@@ -35,7 +35,7 @@
 			$this->db->where('i.id_wc', null); // Filtra por itens com id_wc não nulo
 			$this->db->where('i.sinc_wc', 1); // Filtra por itens que não estão deletados
 			$this->db->where('i.up_wc', 0); // Filtra por itens que foram atualizados no WooCommerce
-			$this->db->limit(1);
+			$this->db->limit(3);
 
 			return $this->db->get()->result_array(); // Retorna o resultado da query
 		}
@@ -48,7 +48,7 @@
 			$this->db->where('i.deleted', 0); // Filtra por itens que não estão deletados
 			$this->db->where('i.sinc_wc', 1); // Filtra por itens que precisam ser sincronizados com o WooCommerce
 			$this->db->where('i.up_wc', 1); // Filtra por itens que foram atualizados no WooCommerce
-			$this->db->limit(1);
+			$this->db->limit(3);
 
 			return $this->db->get()->result_array(); // Retorna o resultado da query
 		}

@@ -82,17 +82,16 @@ class Employee extends Person
 	{
 		$success = false;
 
-		// Inicia a transação
-		$this->db->trans_start();
-		
-		// Salva os dados da pessoa usando o método da classe pai
-		if (parent::save($person_data, $employee_id)) {
+		// Salva os dados da pessoa e obtém o person_id correto
+		$person_id = parent::save($person_data, $employee_id);
+
+		if ($person_id) { // Se salvou corretamente
 			// Verifica se o funcionário não existe (inserção) ou se já existe (atualização)
 			if (!$employee_id || !$this->exists($employee_id)) {
 				// Se não existe, insere um novo funcionário
-				$employee_data['person_id'] = $person_data['person_id']; // Adiciona person_id aos dados do funcionário
+				$employee_data['person_id'] = $person_id; // Agora está pegando o person_id correto
 				$success = $this->db->insert('employees', $employee_data);
-				$employee_id = $this->db->insert_id(); // Captura o ID do novo registro
+				$employee_id = $person_id; // Captura o ID do novo registro
 			} else {
 				// Se já existe, atualiza o registro existente
 				$this->db->where('person_id', $employee_id);
@@ -121,12 +120,10 @@ class Employee extends Person
 			}
 		}
 
-		// Completa a transação
-		$this->db->trans_complete();
-
-		// Retorna o sucesso da operação
-		return $success;
+		// Retorna o ID do funcionário salvo ou false em caso de erro
+		return $success ? $employee_id : false;
 	}
+
 	/*
 	Deletes one employee
 	*/

@@ -66,7 +66,6 @@ class Person extends CI_Model
 	*/
 	function save($person_data, $person_id = false)
 	{
-
 		// Se não existir $person_id ou a pessoa não existir, insere novo registro
 		if (!$person_id || !$this->exists($person_id)) {
 		

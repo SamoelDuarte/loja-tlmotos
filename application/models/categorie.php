@@ -92,14 +92,14 @@ class Categorie extends CI_Model
     public function get_wc_id($item_id)
     {
         // Se a categoria foi encontrada, busca o wc_id da categoria na tabela de categorias
-        $this->db->select('wc_id');  // Seleciona o wc_id
+        $this->db->select('*');  // Seleciona o wc_id
         $this->db->from('pos_categories_products');  // Supondo que a tabela de categorias seja 'pos_categories_products'
         $this->db->where('category_id', $item_id);
         $category_query = $this->db->get();
         $category = $category_query->row();
 
         if ($category) {
-            return $category->wc_id;  // Retorna o wc_id da categoria
+            return $category;  // Retorna o wc_id da categoria
         }
 
 

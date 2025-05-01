@@ -50,13 +50,37 @@ class Cron extends CI_Controller
         $this->load->library('WooCommerceLibrary'); // Certifique-se de carregar a biblioteca WooCommerce
 
         $items = !empty($up) ? $this->Item->get_up_sinc_wc() : $this->Item->get_sinc_wc();
-        // print_r($items);
-        // exit;
 
 
         foreach ($items as $item_data) {
             // Obter o wc_id da categoria
-            $wc_id_category = $this->categorie->get_wc_id($item_data['category_id']);
+            $category = $this->categorie->get_wc_id($item_data['category_id']);
+            if ($category->wc_id == null) {
+                // Dados da categoria para envio ao WooCommerce
+                $send_category = [
+                    'name' => $category->category_name
+                ];
+
+                try {
+                    // Chama a função da biblioteca WooCommerce para criar a categoria
+                    $result = $this->WooCommerceLibrary->create_product_category($send_category);
+
+                    // Atualiza a tabela `categories` com o `wc_id` retornado
+                    $update_data = [
+                        'wc_id' => $result->id
+                    ];
+                    $wc_id_category = $result->id;
+                    $this->Categorie->update($category->category_id, $update_data);
+
+                    echo json_encode(array('success' => true, 'message' => 'Categoria enviada para o WooCommerce com sucesso.'));
+                } catch (Exception $e) {
+                    log_message('error', 'Erro ao enviar categoria para WooCommerce: ' . $e->getMessage());
+                    echo json_encode(array('success' => false, 'message' => 'Erro ao sincronizar com o WooCommerce.' . $e->getMessage()));
+                }
+            } else {
+                $wc_id_category = $category->wc_id;
+            }
+
 
             $woo_data = [
                 'name' => $item_data['name'],

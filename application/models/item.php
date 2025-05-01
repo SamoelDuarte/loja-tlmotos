@@ -106,10 +106,11 @@
 		*/
 		function get_info($item_id)
 		{
-			$this->db->select('items.*, categories_products.category_name'); // Seleciona todos os campos da tabela items e category_name
+			$this->db->select('items.*, categories_products.category_name, brand_products.brand_name'); // Seleciona todos os campos da tabela items e category_name
 			$this->db->from('items');
 			// Altere 'category_id' e 'id' conforme necessário
 			$this->db->join('categories_products', 'items.category_id = categories_products.category_id', 'left'); // Use o nome correto da coluna aqui
+			$this->db->join('brand_products', 'items.brand_id = brand_products.brand_id', 'left'); // Use o nome correto da coluna aqui
 			$this->db->where('item_id', $item_id);
 			$this->db->or_where('item_number', $item_id);
 
@@ -129,6 +130,7 @@
 				}
 
 				$item_obj->category_name = ''; // Adiciona a propriedade category_name ao objeto
+				$item_obj->brand_name = '';    // Adiciona a propriedade brand_name ao objeto
 
 				return $item_obj;
 			}
@@ -208,13 +210,13 @@
 		function save(&$item_data, $item_id = false, $images = array(), $cover_image_index = null)
 		{
 
-			
+
 			// Verifica se o item existe
 			if ($item_id == -1) {
 
-				
+
 				if ($this->db->insert('items', $item_data)) {
-				
+
 					$item_id = $this->db->insert_id();  // Obtém o novo item_id
 				} else {
 					return false;  // Se falhar na inserção, retorna false
@@ -395,6 +397,24 @@
 
 			return $suggestions; // Retorna as sugestões
 		}
+		function get_brand_suggestions($search)
+		{
+			$suggestions = array();
+			$this->db->distinct();
+			$this->db->select('brand_name'); // Alterado para a coluna da tabela de categorias
+			$this->db->from('brand_products'); // Usando a tabela de categorias
+			$this->db->like('brand_name', $search); // Aplicando o filtro de pesquisa na coluna correta
+			$this->db->order_by("brand_name", "asc"); // Ordenando os resultados pela coluna correta
+
+			$by_brand = $this->db->get(); // Executa a consulta
+
+			foreach ($by_brand->result() as $row) {
+				$suggestions[] = $row->brand_name; // Adiciona as categorias às sugestões
+			}
+
+			return $suggestions; // Retorna as sugestões
+		}
+
 
 
 		function get_distinct_categories()

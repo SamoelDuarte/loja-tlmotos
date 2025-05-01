@@ -78,6 +78,12 @@ class Items extends Secure_area implements iData_controller
 		$suggestions = $this->Item->get_category_suggestions($this->input->post('q'));
 		echo implode("\n", $suggestions);
 	}
+	public function suggest_brand()
+	{
+		$suggestions = $this->Item->get_brand_suggestions($this->input->post('q'));
+		echo implode("\n", $suggestions);
+	}
+
 
 	function get_row()
 	{
@@ -161,37 +167,26 @@ class Items extends Secure_area implements iData_controller
 	public function save($item_id = -1)
 	{
 		$this->load->model('categorie');
+		$this->load->model('brand');
 		$category = $this->categorie->get_by_name($this->input->post('category'));
+		$brand = $this->brand->get_by_name($this->input->post('brand'));
+		if ($brand) {
+			$id_brand = $brand->brand_id;
+		} else {
+			$id_brand = $this->brand->insert(['brand_name' => $this->input->post('brand')]);
+		}
+
 		if ($category) {
 			$id_category = $category->category_id;
 		} else {
 			$id_category = $this->categorie->insert(['category_name' => $this->input->post('category')]);
-			// if($this->input->post('sinc_wc') == '1'){
-
-			// }
-			// $category = $this->categorie->get_by_name($this->input->post('category'));
-
-			// try {
-			// 	$data = [
-			// 		'name' => $category->category_name,
-			// 	];
-			// 	$result = 	$this->WooCommerceLibrary->create_product_category($data); // Chama a função da biblioteca para criar a categoria
-			// 	// sleep(6);
-			// 	// Agora, vamos atualizar a tabela local com o ID
-			// 	$update_data = [
-			// 		'wc_id' => $result->id,  // Armazena o ID retornado do WooCommerce
-			// 		'category_id' => $category->category_id,  // Outros dados que você pode querer atualizar
-			// 	];
-			// 	$this->categorie->update($category->category_id,$update_data);
-			// } catch (Exception $e) {
-			// 	log_message('error', 'Erro ao criar categoria no WooCommerce: ' . $e->getMessage());
-			// }
 		}
 		$item_data = array(
 			'name' => $this->input->post('name'),
 			'valor_cnpj' => $this->input->post('valor_cnpj'),
 			'description' => $this->input->post('description'),
 			'category_id' => $id_category,
+			'brand_id' => $id_brand,
 			'supplier_id' => $this->input->post('supplier_id') == '' ? null : $this->input->post('supplier_id'),
 			'item_number' => $this->input->post('item_number') == '' ? null : $this->input->post('item_number'),
 			'cost_price' => $this->input->post('cost_price'),
@@ -215,16 +210,16 @@ class Items extends Secure_area implements iData_controller
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$cur_item_info = $this->Item->get_info($item_id);
 
-		
-		if($this->Item->exists($this->input->post('item_number')) && $item_id == -1){
-			echo json_encode(array('success' => false, 'message' =>  'Esse EAN/UPC/Código da peça: ' . $this->input->post('item_number')." Já Existe", 'item_id' => -1));
+
+		if ($this->Item->exists($this->input->post('item_number')) && $item_id == -1) {
+			echo json_encode(array('success' => false, 'message' =>  'Esse EAN/UPC/Código da peça: ' . $this->input->post('item_number') . " Já Existe", 'item_id' => -1));
 			exit;
 		}
-		
-		
+
+
 		// Salvar o item
 		if ($this->Item->save($item_data, $item_id)) {
-			
+
 			// Novo item
 			if ($item_id == -1) {
 				// Obtenha o item_id após inserir um novo item
@@ -423,7 +418,7 @@ class Items extends Secure_area implements iData_controller
 		$sincWC = array(
 			'up_wc' => 1,
 		);
-		
+
 		$this->db->where('item_id', $item_id);
 		$this->db->update('items', $sincWC);
 

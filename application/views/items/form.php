@@ -46,6 +46,19 @@ echo form_open('items/save/' . $item_info->item_id, array('id' => 'item_form', '
 	</div>
 
 	<div class="field_row clearfix">
+		<?php echo form_label($this->lang->line('items_brand') . ':', 'brand', array('class' => 'required wide')); ?>
+		<div class='form_field'>
+			<?php echo form_input(
+				array(
+					'name' => 'brand',
+					'id' => 'brand',
+					'value' => $item_info->brand_name
+				)
+			); ?>
+		</div>
+	</div>
+
+	<div class="field_row clearfix">
 		<?php echo form_label($this->lang->line('items_supplier') . ':', 'supplier', array('class' => 'required wide')); ?>
 		<div class='form_field' style="width: 100%;">
 			<?php echo form_dropdown('supplier_id', $suppliers, $selected_supplier); ?>
@@ -497,6 +510,15 @@ echo form_close();
 		});
 		$("#category").result(function(event, data, formatted) {});
 		$("#category").search();
+
+		// Configuração do autocomplete para o campo de categoria
+		$("#brand").autocomplete("<?php echo site_url('items/suggest_brand'); ?>", {
+			max: 100,
+			minChars: 0,
+			delay: 10
+		});
+		$("#brand").result(function(event, data, formatted) {});
+		$("#brand").search();
 
 		// Validação e envio do formulário
 		$('#item_form').validate({

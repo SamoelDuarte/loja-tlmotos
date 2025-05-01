@@ -46,6 +46,7 @@ class Cron extends CI_Controller
     public function sync_with_woocommerce($up = null)
     {
         $this->load->model('categorie');
+        $this->load->model('brand');
         $this->load->model('Item'); // Certifique-se de que o modelo 'Item' está carregado
         $this->load->library('WooCommerceLibrary'); // Certifique-se de carregar a biblioteca WooCommerce
 
@@ -55,6 +56,26 @@ class Cron extends CI_Controller
         foreach ($items as $item_data) {
             // Obter o wc_id da categoria
             $category = $this->categorie->get_wc_id($item_data['category_id']);
+            $brand = $this->brand->get_wc_id($item_data['brand_id']);
+
+            if ($brand->wc_id == null) {
+                $send_brand = [
+                    'name' => $brand->brand_name,
+                    'slug' => strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $brand->brand_name))
+                ];
+    
+                try {
+                    $result = $this->WooCommerceLibrary->create_product_brand($send_brand);
+                    $this->brand->update($brand->brand_id, ['wc_id' => $result->id]);
+                    $brand_term_name = $result->name;
+                } catch (Exception $e) {
+                    log_message('error', 'Erro ao criar marca: ' . $e->getMessage());
+                    $brand_term_name = null;
+                }
+            } else {
+                $brand_term_name = $brand->brand_name;
+            }
+
             if ($category->wc_id == null) {
                 // Dados da categoria para envio ao WooCommerce
                 $send_category = [
@@ -97,6 +118,16 @@ class Cron extends CI_Controller
             // Adiciona a categoria se existir um wc_id válido
             if ($wc_id_category) {
                 $woo_data['categories'] = [['id' => $wc_id_category]];
+            }
+            if (!empty($brand_term_name)) {
+                // print_r($brand_term_name);
+                // exit;
+                $woo_data['attributes'][] = [
+                    'id' => 1, // ID do atributo "Marca"
+                    'options' => [$brand_term_name],
+                    'visible' => true,
+                    'variation' => false
+                ];
             }
 
             // Adiciona imagens se existirem

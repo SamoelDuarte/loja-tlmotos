@@ -78,4 +78,11 @@ class WooCommerceLibrary
     {
         return $this->client->post('products/categories', $data);
     }
+
+    // Outra função de exemplo para criar um categoria
+    public function create_product_brand($data)
+    {
+        return $this->client->post('products/attributes/1/terms', $data); // CERTO
+
+    }
 }

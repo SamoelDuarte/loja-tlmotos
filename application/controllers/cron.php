@@ -106,7 +106,7 @@ class Cron extends CI_Controller
             $woo_data = [
                 'name' => $item_data['name'],
                 'regular_price' => !empty($item_data['sale_price']) ? (string)$item_data['sale_price'] : null, // Preço promocional
-                'description' => $item_data['description'],
+                // 'description' => $item_data['description'],
                 'sku' => $item_data['item_number'],
                 'stock_quantity' => (int)$item_data['quantity'],
                 'manage_stock' => true,

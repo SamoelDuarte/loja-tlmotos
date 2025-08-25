@@ -6,11 +6,19 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'NFePHP\\NFe\\' => array($vendorDir . '/nfephp-org/sped-nfe/src'),
+    'NFePHP\\Gtin\\' => array($vendorDir . '/nfephp-org/sped-gtin/src'),
+    'NFePHP\\DA\\' => array($vendorDir . '/nfephp-org/sped-da/src'),
+    'NFePHP\\Common\\' => array($vendorDir . '/nfephp-org/sped-common/src'),
     'Laminas\\Validator\\' => array($vendorDir . '/laminas/laminas-validator/src'),
     'Laminas\\Stdlib\\' => array($vendorDir . '/laminas/laminas-stdlib/src'),
     'Laminas\\ServiceManager\\' => array($vendorDir . '/laminas/laminas-servicemanager/src'),
     'Laminas\\Barcode\\' => array($vendorDir . '/laminas/laminas-barcode/src'),
+    'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
+    'Com\\Tecnick\\Color\\' => array($vendorDir . '/tecnickcom/tc-lib-color/src'),
+    'Com\\Tecnick\\Barcode\\' => array($vendorDir . '/tecnickcom/tc-lib-barcode/src'),
     'Automattic\\WooCommerce\\' => array($vendorDir . '/automattic/woocommerce/src/WooCommerce'),
 );

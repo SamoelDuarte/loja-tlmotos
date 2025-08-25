@@ -1,6 +1,8 @@
 {
     "require": {
         "laminas/laminas-barcode": "^2.14",
-        "automattic/woocommerce": "^3.1"
+        "automattic/woocommerce": "^3.1",
+        "nfephp-org/sped-nfe": "^5.1",
+        "nfephp-org/sped-da": "^1.1"
     }
 }

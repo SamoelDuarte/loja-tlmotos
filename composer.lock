@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7fb0affc97c39114ac86302c40175e69",
+    "content-hash": "d19c93fe43712702b21d629014ed6009",
     "packages": [
         {
             "name": "automattic/woocommerce",
@@ -58,6 +58,71 @@
                 "source": "https://github.com/woocommerce/wc-api-php/tree/3.1.0"
             },
             "time": "2022-03-18T21:46:17+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
+                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
+                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
+                "json-schema/json-schema-test-suite": "1.2.0",
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "issues": "https://github.com/jsonrainbow/json-schema/issues",
+                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.0"
+            },
+            "time": "2024-07-06T21:00:26+00:00"
         },
         {
             "name": "laminas/laminas-barcode",
@@ -121,16 +186,16 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.23.0",
+            "version": "3.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
-                "reference": "a8640182b892b99767d54404d19c5c3b3699f79b"
+                "reference": "06594db3a644447521eace9b5efdb12dc8446a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/a8640182b892b99767d54404d19c5c3b3699f79b",
-                "reference": "a8640182b892b99767d54404d19c5c3b3699f79b",
+                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/06594db3a644447521eace9b5efdb12dc8446a33",
+                "reference": "06594db3a644447521eace9b5efdb12dc8446a33",
                 "shasum": ""
             },
             "require": {
@@ -153,12 +218,12 @@
             "require-dev": {
                 "composer/package-versions-deprecated": "^1.11.99.5",
                 "friendsofphp/proxy-manager-lts": "^1.0.18",
-                "laminas/laminas-code": "^4.14.0",
+                "laminas/laminas-code": "^4.16.0",
                 "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-container-config-test": "^0.8",
                 "mikey179/vfsstream": "^1.6.12",
-                "phpbench/phpbench": "^1.3.1",
-                "phpunit/phpunit": "^10.5.36",
+                "phpbench/phpbench": "^1.4.1",
+                "phpunit/phpunit": "^10.5.51",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "vimeo/psalm": "^5.26.1"
             },
@@ -207,7 +272,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-10-28T21:32:16+00:00"
+            "time": "2025-08-12T08:44:02+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -270,16 +335,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.64.2",
+            "version": "2.64.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "771e504760448ac7af660710237ceb93be602e08"
+                "reference": "e2e6631f599a9b0db1e23adb633c09a2f0c68bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/771e504760448ac7af660710237ceb93be602e08",
-                "reference": "771e504760448ac7af660710237ceb93be602e08",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/e2e6631f599a9b0db1e23adb633c09a2f0c68bed",
+                "reference": "e2e6631f599a9b0db1e23adb633c09a2f0c68bed",
                 "shasum": ""
             },
             "require": {
@@ -350,7 +415,326 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-11-26T21:29:17+00:00"
+            "time": "2025-06-16T14:38:00+00:00"
+        },
+        {
+            "name": "nfephp-org/sped-common",
+            "version": "v5.1.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nfephp-org/sped-common.git",
+                "reference": "1c6b03dd06b396ee3680d07c9c071b82f869fd42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nfephp-org/sped-common/zipball/1c6b03dd06b396ee3680d07c9c071b82f869fd42",
+                "reference": "1c6b03dd06b396ee3680d07c9c071b82f869fd42",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-soap": "*",
+                "php": ">= 7.4",
+                "psr/log": "^1.0||^2.0||^3.0"
+            },
+            "require-dev": {
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.3",
+                "scrutinizer/ocular": "^1.8",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-v5.0": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NFePHP\\Common\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later",
+                "GPL-3.0-or-later",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roberto L. Machado",
+                    "email": "linux.rlm@gmail.com.br",
+                    "homepage": "http://www.nfephp.org",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Gustavo Lidani",
+                    "email": "lidanig0@gmail.com",
+                    "homepage": "https://github.com/lidani",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Comunidade NFePHP",
+                    "homepage": "https://github.com/nfephp-org/sped-common/graphs/contributors"
+                }
+            ],
+            "description": "sped-common é parte do projeto NFePHP.",
+            "homepage": "https://github.com/nfephp-org/sped-common",
+            "keywords": [
+                "nfe",
+                "nfephp",
+                "sped"
+            ],
+            "support": {
+                "issues": "https://github.com/nfephp-org/sped-common/issues",
+                "source": "https://github.com/nfephp-org/sped-common/tree/v5.1.16"
+            },
+            "time": "2025-07-02T12:34:43+00:00"
+        },
+        {
+            "name": "nfephp-org/sped-da",
+            "version": "v1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nfephp-org/sped-da.git",
+                "reference": "93ae550adcf5dd0c43598f27e323a8af84ceba22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nfephp-org/sped-da/zipball/93ae550adcf5dd0c43598f27e323a8af84ceba22",
+                "reference": "93ae550adcf5dd0c43598f27e323a8af84ceba22",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-gd": "*",
+                "ext-mbstring": "*",
+                "nfephp-org/sped-common": "^5.1.0",
+                "php": ">= 7.4",
+                "tecnickcom/tc-lib-barcode": "^1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.3",
+                "scrutinizer/ocular": "^1.8",
+                "sebastian/phpcpd": "^6.0",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "suggest": {
+                "nfephp-org/posprint": "^0.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NFePHP\\DA\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later+",
+                "GPL-3.0-or-later",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roberto L. Machado",
+                    "email": "linux.rlm@gmail.com.br",
+                    "homepage": "http://www.nfephp.org",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Comunidade NFePHP",
+                    "homepage": "https://github.com/nfephp-org/sped-da/graphs/contributors"
+                }
+            ],
+            "description": "sped-da contêm as classes para criação dos documentos auxiliares referidos no projeto Sped.",
+            "homepage": "https://github.com/nfephp-org/sped-da",
+            "keywords": [
+                "CCe",
+                "Dacte",
+                "Danfe",
+                "nfe",
+                "nfephp",
+                "sped"
+            ],
+            "support": {
+                "issues": "https://github.com/nfephp-org/sped-da/issues",
+                "source": "https://github.com/nfephp-org/sped-da/tree/v1.1.6"
+            },
+            "time": "2024-05-07T19:32:22+00:00"
+        },
+        {
+            "name": "nfephp-org/sped-gtin",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nfephp-org/sped-gtin.git",
+                "reference": "a00b9bc26f91bd5583f24ec341b7e5149a9769a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nfephp-org/sped-gtin/zipball/a00b9bc26f91bd5583f24ec341b7e5149a9769a1",
+                "reference": "a00b9bc26f91bd5583f24ec341b7e5149a9769a1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-openssl": "*",
+                "ext-simplexml": "*",
+                "ext-soap": "*",
+                "nfephp-org/sped-common": "^5.1.0",
+                "php": ">= 7.4"
+            },
+            "require-dev": {
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.3",
+                "scrutinizer/ocular": "^1.8",
+                "squizlabs/php_codesniffer": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "v1.0": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NFePHP\\Gtin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later",
+                "GPL-3.0-or-later",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roberto L. Machado",
+                    "email": "linux.rlm@gmail.com.br",
+                    "homepage": "https://github.com/nfephp-org",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Gustavo Lidani",
+                    "email": "lidanig0@gmail.com",
+                    "homepage": "https://github.com/lidani",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Comunidade NFePHP",
+                    "homepage": "https://github.com/nfephp-org/sped-gtin/graphs/contributors"
+                }
+            ],
+            "description": "Classes for validation of GTIN codes.",
+            "homepage": "https://github.com/nfephp-org/sped-gtin",
+            "keywords": [
+                "gtin",
+                "nfce",
+                "nfe",
+                "nfephp",
+                "sped"
+            ],
+            "support": {
+                "issues": "https://github.com/nfephp-org/sped-gtin/issues",
+                "source": "https://github.com/nfephp-org/sped-gtin/tree/v1.1.2"
+            },
+            "time": "2025-05-30T20:52:05+00:00"
+        },
+        {
+            "name": "nfephp-org/sped-nfe",
+            "version": "v5.1.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nfephp-org/sped-nfe.git",
+                "reference": "7fd6e5d6d21dc8f084face1df6286fea6b1c2972"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nfephp-org/sped-nfe/zipball/7fd6e5d6d21dc8f084face1df6286fea6b1c2972",
+                "reference": "7fd6e5d6d21dc8f084face1df6286fea6b1c2972",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-openssl": "*",
+                "ext-simplexml": "*",
+                "ext-soap": "*",
+                "ext-zlib": "*",
+                "justinrainbow/json-schema": "^5.2",
+                "nfephp-org/sped-common": "^5.1.0",
+                "nfephp-org/sped-gtin": "^1.1.0",
+                "php": ">= 7.4"
+            },
+            "require-dev": {
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.3",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "v5.1": "5.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NFePHP\\NFe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later",
+                "GPL-3.0-or-later",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roberto L. Machado",
+                    "email": "linux.rlm@gmail.com.br",
+                    "homepage": "https://www.nfephp.com.br/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Gustavo Lidani",
+                    "email": "lidanig0@gmail.com",
+                    "homepage": "https://github.com/lidani",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Comunidade NFePHP",
+                    "homepage": "https://github.com/nfephp-org/sped-nfe/graphs/contributors"
+                }
+            ],
+            "description": "API para geração e comunicação da NFe e NFCe com as SEFAZ autorizadoras.",
+            "homepage": "https://github.com/nfephp-org/sped-nfe",
+            "keywords": [
+                "nfce",
+                "nfe",
+                "nfephp",
+                "sped"
+            ],
+            "support": {
+                "issues": "https://github.com/nfephp-org/sped-nfe/issues",
+                "source": "https://github.com/nfephp-org/sped-nfe/tree/v5.1.33"
+            },
+            "time": "2025-07-07T13:03:36+00:00"
         },
         {
             "name": "psr/container",
@@ -452,6 +836,225 @@
                 "source": "https://github.com/php-fig/http-message/tree/2.0"
             },
             "time": "2023-04-04T09:54:51+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/3.0.2"
+            },
+            "time": "2024-09-11T13:17:53+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-barcode",
+            "version": "1.18.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
+                "reference": "cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44",
+                "reference": "cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-date": "*",
+                "ext-gd": "*",
+                "ext-pcre": "*",
+                "php": ">=5.6",
+                "tecnickcom/tc-lib-color": "^1.14"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "2.13.0",
+                "phpmd/phpmd": "2.13.0",
+                "phpunit/phpunit": "10.1.2 || 9.6.7 || 8.5.31 || 7.5.20 || 6.5.14 || 5.7.27 || 4.8.36",
+                "squizlabs/php_codesniffer": "3.7.2 || 2.9.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Barcode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to generate linear and bidimensional barcodes",
+            "homepage": "http://www.tecnick.com",
+            "keywords": [
+                "3 of 9",
+                "ANSI MH10.8M-1983",
+                "CBC",
+                "CODABAR",
+                "CODE 11",
+                "CODE 128 A B C",
+                "CODE 39",
+                "CODE 93",
+                "EAN 13",
+                "EAN 8",
+                "ECC200",
+                "ISO IEC 15438 2006",
+                "ISO IEC 16022",
+                "ISO IEC 24778 2008",
+                "Intelligent Mail Barcode",
+                "Interleaved 2 of 5",
+                "KIX",
+                "Klant",
+                "MSI",
+                "Onecode",
+                "PHARMACODE",
+                "PHARMACODE TWO-TRACKS",
+                "POSTNET",
+                "RMS4CC",
+                "Standard 2 of 5",
+                "UPC-A",
+                "UPC-E",
+                "USD-3",
+                "USPS-B-3200",
+                "USS-93",
+                "aztec",
+                "barcode",
+                "datamatrix",
+                "pdf417",
+                "planet",
+                "qr-code",
+                "royal mail",
+                "tc-lib-barcode",
+                "upc"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-barcode/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/1.18.4"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tc-lib-barcode%20project",
+                    "type": "custom"
+                }
+            ],
+            "time": "2023-10-23T09:30:01+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-color",
+            "version": "1.14.39",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-color.git",
+                "reference": "f7a414e7ddbdcd98105506ca1eecc68d4820fb89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/f7a414e7ddbdcd98105506ca1eecc68d4820fb89",
+                "reference": "f7a414e7ddbdcd98105506ca1eecc68d4820fb89",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "2.13.0",
+                "phpmd/phpmd": "2.13.0",
+                "phpunit/phpunit": "10.1.2 || 9.6.7 || 8.5.31 || 7.5.20 || 6.5.14 || 5.7.27 || 4.8.36",
+                "squizlabs/php_codesniffer": "3.7.2 || 2.9.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Color\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to manipulate various color representations",
+            "homepage": "http://www.tecnick.com",
+            "keywords": [
+                "cmyk",
+                "color",
+                "colors",
+                "colour",
+                "colours",
+                "hsl",
+                "hsla",
+                "javascript",
+                "rgb",
+                "rgba",
+                "tc-lib-color",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-color/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-color/tree/1.14.39"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tc-lib-color%20project",
+                    "type": "custom"
+                }
+            ],
+            "time": "2023-10-23T09:28:20+00:00"
         }
     ],
     "packages-dev": [],

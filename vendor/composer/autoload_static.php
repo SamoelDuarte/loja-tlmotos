@@ -13,8 +13,16 @@ class ComposerStaticInitac2d307f4ed514763a8119f3523066bb
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+        ),
+        'N' => 
+        array (
+            'NFePHP\\NFe\\' => 11,
+            'NFePHP\\Gtin\\' => 12,
+            'NFePHP\\DA\\' => 10,
+            'NFePHP\\Common\\' => 14,
         ),
         'L' => 
         array (
@@ -23,6 +31,15 @@ class ComposerStaticInitac2d307f4ed514763a8119f3523066bb
             'Laminas\\ServiceManager\\' => 23,
             'Laminas\\Barcode\\' => 16,
         ),
+        'J' => 
+        array (
+            'JsonSchema\\' => 11,
+        ),
+        'C' => 
+        array (
+            'Com\\Tecnick\\Color\\' => 18,
+            'Com\\Tecnick\\Barcode\\' => 20,
+        ),
         'A' => 
         array (
             'Automattic\\WooCommerce\\' => 23,
@@ -30,6 +47,10 @@ class ComposerStaticInitac2d307f4ed514763a8119f3523066bb
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -37,6 +58,22 @@ class ComposerStaticInitac2d307f4ed514763a8119f3523066bb
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'NFePHP\\NFe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nfephp-org/sped-nfe/src',
+        ),
+        'NFePHP\\Gtin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nfephp-org/sped-gtin/src',
+        ),
+        'NFePHP\\DA\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nfephp-org/sped-da/src',
+        ),
+        'NFePHP\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nfephp-org/sped-common/src',
         ),
         'Laminas\\Validator\\' => 
         array (
@@ -53,6 +90,18 @@ class ComposerStaticInitac2d307f4ed514763a8119f3523066bb
         'Laminas\\Barcode\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-barcode/src',
+        ),
+        'JsonSchema\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
+        'Com\\Tecnick\\Color\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tecnickcom/tc-lib-color/src',
+        ),
+        'Com\\Tecnick\\Barcode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tecnickcom/tc-lib-barcode/src',
         ),
         'Automattic\\WooCommerce\\' => 
         array (

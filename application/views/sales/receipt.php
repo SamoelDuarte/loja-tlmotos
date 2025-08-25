@@ -97,6 +97,28 @@ if (isset($error_message))
 
 	</table>
 
+	<?php if (isset($nota_fiscal_gerada) && $nota_fiscal_gerada === true): ?>
+	<div style="border: 3px solid #4CAF50; background-color: #f0fdf4; padding: 15px; margin: 20px 0; text-align: center;">
+		<h3 style="color: #4CAF50; margin: 0 0 10px 0;">✅ NOTA FISCAL GERADA</h3>
+		<p style="margin: 5px 0; font-weight: bold;">NFC-e foi emitida com sucesso para esta venda!</p>
+		<?php if (isset($nota_fiscal_path)): ?>
+		<p style="margin: 10px 0;">
+			<a href="<?php echo base_url($nota_fiscal_path); ?>" target="_blank" 
+			   style="background-color: #4CAF50; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+				📄 Ver NFC-e
+			</a>
+			<a href="<?php echo base_url($nota_fiscal_path); ?>" download 
+			   style="background-color: #008CBA; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; margin-left: 10px; font-weight: bold;">
+				💾 Download
+			</a>
+		</p>
+		<?php endif; ?>
+		<p style="font-size: 11px; color: #666; margin-top: 10px;">
+			A Nota Fiscal será aberta automaticamente para impressão
+		</p>
+	</div>
+	<?php endif; ?>
+
 	<div id="sale_return_policy">
 	<?php echo nl2br($this->config->item('return_policy')); ?>
 	</div>
@@ -113,6 +135,38 @@ if (isset($error_message))
 $(window).load(function()
 {
 	window.print();
+});
+</script>
+<?php
+}
+?>
+
+<?php 
+// Se uma nota fiscal foi gerada, abrir automaticamente para impressão
+if (isset($nota_fiscal_gerada) && $nota_fiscal_gerada === true && isset($nota_fiscal_path))
+{
+?>
+<script type="text/javascript">
+$(window).load(function()
+{
+	// Aguardar um pouco e abrir a nota fiscal
+	setTimeout(function() {
+		// Abrir nota fiscal em nova janela otimizada para impressão
+		var notaWindow = window.open('<?php echo base_url($nota_fiscal_path); ?>', 'nota_fiscal', 'width=800,height=600,scrollbars=yes,resizable=yes');
+		
+		// Após carregar, focar na impressão
+		notaWindow.onload = function() {
+			notaWindow.focus();
+			notaWindow.print();
+		};
+		
+		// Se não conseguir abrir, mostrar link direto
+		if (!notaWindow) {
+			if (confirm('Pop-up bloqueado! Deseja abrir a Nota Fiscal em nova aba?')) {
+				window.open('<?php echo base_url($nota_fiscal_path); ?>', '_blank');
+			}
+		}
+	}, 1000);
 });
 </script>
 <?php

@@ -5,6 +5,7 @@ class WH extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('NotaFiscalLibrary');
     }
 
     public function woocommerceOrders()
@@ -133,6 +134,11 @@ class WH extends CI_Controller
             } else {
                 // Confirma a transação
                 $this->db->trans_commit();
+                
+                // Gerar NFe para pedidos completos
+                if ($status === 'processing' || $status === 'completed') {
+                    $this->generate_nfe_woocommerce($decoded_data);
+                }
             }
         } catch (Exception $e) {
             log_message('error', 'Erro no processamento do pedido: ' . $e->getMessage());
@@ -218,6 +224,76 @@ class WH extends CI_Controller
             } else {
                 echo json_encode(array('success' => false, 'message' => 'Erro ao atualizar estoque para ' . $cur_item_info->name, 'item_id' => -1));
             }
+        }
+    }
+    
+    /**
+     * Gera NFe para pedidos do WooCommerce
+     */
+    private function generate_nfe_woocommerce($order_data)
+    {
+        try {
+            // Verificar se já foi gerada NFe para este pedido
+            if (isset($order_data['meta_data'])) {
+                foreach ($order_data['meta_data'] as $meta) {
+                    if ($meta['key'] === 'nfe_gerada' && $meta['value'] === 'yes') {
+                        log_message('info', 'NFe já foi gerada para o pedido: ' . $order_data['id']);
+                        return;
+                    }
+                }
+            }
+            
+            // Preparar dados do cliente
+            $customer_data = [
+                'nome' => $order_data['billing']['first_name'] . ' ' . $order_data['billing']['last_name'],
+                'email' => $order_data['billing']['email'],
+                'endereco' => $order_data['billing']['address_1'],
+                'numero' => $order_data['billing']['address_2'] ?: 'S/N',
+                'bairro' => $order_data['billing']['city'], // Usando city como bairro
+                'municipio' => $order_data['billing']['city'],
+                'uf' => $order_data['billing']['state'],
+                'cep' => preg_replace('/[^0-9]/', '', $order_data['billing']['postcode']),
+                'cpf' => $order_data['billing']['cpf'] ?? null,
+                'cnpj' => $order_data['billing']['cnpj'] ?? null,
+                'cod_municipio' => '3550308' // São Paulo - você deve ajustar
+            ];
+            
+            // Preparar itens do pedido
+            $items = [];
+            foreach ($order_data['line_items'] as $item) {
+                $items[] = [
+                    'codigo' => $item['product_id'],
+                    'descricao' => $item['name'],
+                    'quantidade' => $item['quantity'],
+                    'valor_unitario' => floatval($item['price']),
+                    'ncm' => '99999999' // NCM padrão - você deve ajustar
+                ];
+            }
+            
+            // Gerar NFe
+            try {
+                // Carregar a biblioteca manualmente
+                require_once(APPPATH . 'libraries/NotaFiscalLibrary.php');
+                $notafiscal = new NotaFiscalLibrary();
+                
+                $result = $notafiscal->generateNFeWooCommerce($order_data, $customer_data, $items);
+            } catch (Exception $lib_error) {
+                log_message('error', 'Erro ao carregar NotaFiscalLibrary: ' . $lib_error->getMessage());
+                return;
+            }
+            
+            if ($result['success']) {
+                log_message('info', 'NFe gerada e enviada com sucesso para pedido WooCommerce: ' . $order_data['id']);
+                
+                // Aqui você poderia atualizar o pedido no WooCommerce para marcar que a NFe foi gerada
+                // usando a WooCommerce API
+                
+            } else {
+                log_message('error', 'Erro ao gerar NFe para pedido WooCommerce: ' . $result['error']);
+            }
+            
+        } catch (Exception $e) {
+            log_message('error', 'Erro ao processar NFe para pedido WooCommerce: ' . $e->getMessage());
         }
     }
 }

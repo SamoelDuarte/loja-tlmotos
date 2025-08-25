@@ -282,6 +282,18 @@ class Sales extends Secure_area
 		if ($data['sale_id'] == 'POS -1') {
 			$data['error_message'] = $this->lang->line('sales_transaction_failed');
 		} else {
+			// Verificar se deve emitir nota fiscal
+			$emitir_nota = $this->input->post('emitir_nota');
+			
+			if ($emitir_nota == '1') {
+				// Gerar NFC-e para venda no balcão
+				$nota_path = $this->generate_nfce_sale($data);
+				if ($nota_path) {
+					$data['nota_fiscal_gerada'] = true;
+					$data['nota_fiscal_path'] = $nota_path;
+				}
+			}
+			
 			if ($this->sale_lib->get_email_receipt() && !empty($cust_info->email)) {
 				$this->load->library('email');
 				$config['mailtype'] = 'html';
@@ -294,7 +306,17 @@ class Sales extends Secure_area
 				$this->email->send();
 			}
 		}
-		$this->load->view("sales/receipt", $data);
+		
+		// Verificar se nota fiscal foi gerada para escolher qual view mostrar
+		if (isset($data['nota_fiscal_gerada']) && $data['nota_fiscal_gerada'] === true && isset($data['nota_fiscal_path'])) {
+			// Carregar conteúdo da nota fiscal e mostrar diretamente
+			$nota_content = file_get_contents(FCPATH . $data['nota_fiscal_path']);
+			echo $nota_content;
+		} else {
+			// Mostrar cupom tradicional
+			$this->load->view("sales/receipt", $data);
+		}
+		
 		$this->sale_lib->clear_all();
 	}
 
@@ -482,5 +504,114 @@ class Sales extends Secure_area
 		$this->sale_lib->copy_entire_suspended_sale($sale_id);
 		$this->Sale_suspended->delete($sale_id);
 		$this->_reload();
+	}
+	
+	/**
+	 * Gera NFC-e para vendas no balcão
+	 */
+	private function generate_nfce_sale($sale_data)
+	{
+		try {
+			// Carregar a biblioteca manualmente
+			require_once(APPPATH . 'libraries/NotaFiscalLibrary.php');
+			$notafiscal = new NotaFiscalLibrary();
+			
+			// Preparar dados da venda
+			$sale_info = [
+				'sale_id' => str_replace('POS ', '', $sale_data['sale_id'])
+			];
+			
+			// Preparar dados do cliente (se houver)
+			$customer_data = null;
+			if (isset($sale_data['customer']) && !empty($sale_data['customer'])) {
+				$customer_data = [
+					'nome' => $sale_data['customer']
+				];
+			}
+			
+			// Preparar itens da venda
+			$items = [];
+			foreach ($sale_data['cart'] as $cart_item) {
+				$items[] = [
+					'codigo' => $cart_item['item_id'],
+					'nome' => isset($cart_item['name']) ? $cart_item['name'] : $cart_item['description'],
+					'descricao' => $cart_item['description'],
+					'quantidade' => $cart_item['quantity'],
+					'valor_unitario' => $cart_item['price']
+				];
+			}
+			
+			// Gerar NFC-e
+			$result = $notafiscal->generateNFCeSale($sale_info, $customer_data, $items);
+			
+			if ($result['success']) {
+				log_message('info', 'NFC-e gerada com sucesso para venda: ' . $sale_info['sale_id']);
+				return $result['pdf_path'];
+			} else {
+				log_message('error', 'Erro ao gerar NFC-e: ' . $result['error']);
+				return false;
+			}
+			
+		} catch (Exception $e) {
+			log_message('error', 'Erro ao gerar NFC-e para venda: ' . $e->getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 * Lista as notas fiscais geradas
+	 */
+	public function listar_notas()
+	{
+		$this->load->helper('directory');
+		$notas_dir = FCPATH . 'uploads/notas_fiscais/';
+		
+		$data = array();
+		$data['notas'] = array();
+		$data['debug_info'] = array(); // Para debug
+		
+		// Criar pasta se não existir
+		if (!is_dir($notas_dir)) {
+			mkdir($notas_dir, 0755, true);
+			$data['debug_info'][] = 'Pasta criada: ' . $notas_dir;
+		}
+		
+		$data['debug_info'][] = 'Verificando pasta: ' . $notas_dir;
+		$data['debug_info'][] = 'Pasta existe: ' . (is_dir($notas_dir) ? 'SIM' : 'NÃO');
+		
+		if (is_dir($notas_dir)) {
+			// Listar arquivos na pasta
+			$all_files = scandir($notas_dir);
+			$data['debug_info'][] = 'Arquivos encontrados: ' . count($all_files);
+			
+			foreach ($all_files as $file) {
+				if ($file != '.' && $file != '..' && is_file($notas_dir . $file)) {
+					$extension = pathinfo($file, PATHINFO_EXTENSION);
+					$data['debug_info'][] = 'Arquivo: ' . $file . ' (ext: ' . $extension . ')';
+					
+					if (strtolower($extension) === 'pdf' || strtolower($extension) === 'html') {
+						$file_path = $notas_dir . $file;
+						$data['notas'][] = array(
+							'nome' => $file,
+							'data_criacao' => date('d/m/Y H:i:s', filemtime($file_path)),
+							'tamanho' => round(filesize($file_path) / 1024, 2) . ' KB',
+							'url' => base_url('uploads/notas_fiscais/' . $file),
+							'tipo' => strtoupper($extension)
+						);
+					}
+				}
+			}
+		} else {
+			$data['debug_info'][] = 'ERRO: Não foi possível acessar a pasta';
+		}
+		
+		// Ordenar por data de criação (mais recentes primeiro)
+		if (!empty($data['notas'])) {
+			usort($data['notas'], function($a, $b) {
+				return strtotime($b['data_criacao']) - strtotime($a['data_criacao']);
+			});
+		}
+		
+		$this->load->view('sales/listar_notas', $data);
 	}
 }

@@ -24,6 +24,12 @@ if (isset($success)) {
 			array('class' => 'thickbox none', 'title' => $this->lang->line('sales_suspended_sales'))
 		);
 		?>
+		<?php echo anchor(
+			"sales/listar_notas",
+			"<div class='small_button' style='margin-left:5px; background-color:#4CAF50;'><span style='font-size:73%;'>Notas Fiscais</span></div>",
+			array('target' => '_blank', 'title' => 'Ver Notas Fiscais Geradas')
+		);
+		?>
 	</div>
 	</form>
 	<?php echo form_open("sales/add", array('id' => 'add_item_form')); ?>
@@ -405,7 +411,12 @@ if (isset($success)) {
 
 		$("#finish_sale_button").click(function() {
 			if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>')) {
-				$('#finish_sale_form').submit();
+				// Perguntar sobre nota fiscal usando confirm simples
+				if (confirm('Deseja emitir NOTA FISCAL para esta venda?\n\nOK = Sim, emitir nota fiscal\nCancelar = Não, apenas cupom')) {
+					finalizarVendaComNota();
+				} else {
+					finalizarVendaSemNota();
+				}
 			}
 		});
 
@@ -451,5 +462,96 @@ if (isset($success)) {
 		} else {
 			$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_amount_tendered'); ?>");
 		}
+	}
+
+	function showNotaFiscalModal() {
+		console.log('Função showNotaFiscalModal chamada');
+		// Criar modal se não existir
+		if ($('#notaFiscalModal').length === 0) {
+			console.log('Criando modal');
+			$('body').append(
+				'<div id="notaFiscalModal" style="' +
+					'display: none;' +
+					'position: fixed;' +
+					'z-index: 1000;' +
+					'left: 0;' +
+					'top: 0;' +
+					'width: 100%;' +
+					'height: 100%;' +
+					'background-color: rgba(0,0,0,0.5);' +
+				'">' +
+					'<div style="' +
+						'background-color: #fefefe;' +
+						'margin: 15% auto;' +
+						'padding: 20px;' +
+						'border: 1px solid #888;' +
+						'width: 400px;' +
+						'border-radius: 10px;' +
+						'text-align: center;' +
+					'">' +
+						'<h3>Emitir Nota Fiscal?</h3>' +
+						'<p>Deseja emitir nota fiscal para esta venda?</p>' +
+						'<br>' +
+						'<button id="emitirNotaBtn" style="' +
+							'background-color: #4CAF50;' +
+							'color: white;' +
+							'padding: 10px 20px;' +
+							'border: none;' +
+							'border-radius: 4px;' +
+							'cursor: pointer;' +
+							'margin-right: 10px;' +
+						'">Sim, Emitir Nota Fiscal</button>' +
+						
+						'<button id="apenasReciboBtn" style="' +
+							'background-color: #f44336;' +
+							'color: white;' +
+							'padding: 10px 20px;' +
+							'border: none;' +
+							'border-radius: 4px;' +
+							'cursor: pointer;' +
+							'margin-left: 10px;' +
+						'">Não, Apenas Cupom</button>' +
+					'</div>' +
+				'</div>'
+			);
+		} else {
+			console.log('Modal já existe');
+		}
+		
+		console.log('Mostrando modal');
+		$('#notaFiscalModal').show();
+		
+		// Event listeners para os botões - usando unbind() para jQuery 1.2.6
+		$('#emitirNotaBtn').unbind('click').click(function() {
+			console.log('Botão EMITIR NOTA clicado');
+			$('#notaFiscalModal').hide();
+			finalizarVendaComNota();
+		});
+		
+		$('#apenasReciboBtn').unbind('click').click(function() {
+			console.log('Botão APENAS CUPOM clicado');
+			$('#notaFiscalModal').hide();
+			finalizarVendaSemNota();
+		});
+	}
+
+	function finalizarVendaComNota() {
+		// Adicionar campo hidden indicando que quer nota fiscal
+		if ($('#emitir_nota').length === 0) {
+			$('#finish_sale_form').append('<input type="hidden" name="emitir_nota" id="emitir_nota" value="1">');
+		} else {
+			$('#emitir_nota').val('1');
+		}
+		$('#finish_sale_form').submit();
+	}
+
+	function finalizarVendaSemNota() {
+		// Adicionar campo hidden indicando que NÃO quer nota fiscal
+		if ($('#emitir_nota').length === 0) {
+			$('#finish_sale_form').append('<input type="hidden" name="emitir_nota" id="emitir_nota" value="0">');
+		} else {
+			$('#emitir_nota').val('0');
+		}
+		$('#finish_sale_form').submit();
 	}
 </script>

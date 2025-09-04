@@ -49,14 +49,14 @@
 	);
 	?>
 	</form>
-	<?php // echo form_open("sales/delete/".$sale_info['sale_id'],array('id'=>'sales_delete_form')); ?>
+	<?php  echo form_open("sales/delete/".$sale_info['sale_id'],array('id'=>'sales_delete_form')); ?>
 		<?php
-		// echo form_submit(array(
-		// 	'name'=>'submit',
-		// 	'id'=>'submit',
-		// 	'value'=>$this->lang->line('sales_delete_entire_sale'),
-		// 	'class'=>'delete_button float_right')
-		// );
+		echo form_submit(array(
+			'name'=>'submit',
+			'id'=>'submit',
+			'value'=>$this->lang->line('sales_delete_entire_sale'),
+			'class'=>'delete_button float_right')
+		);
 		?>
 		
 	</form>

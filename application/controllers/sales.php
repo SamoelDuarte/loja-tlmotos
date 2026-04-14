@@ -294,8 +294,10 @@ class Sales extends Secure_area
 				$this->email->send();
 			}
 		}
-		$this->load->view("sales/receipt", $data);
 		$this->sale_lib->clear_all();
+		dd('1');
+		$this->load->view("sales/receipt", $data);
+		
 	}
 
 	function receipt($sale_id)
